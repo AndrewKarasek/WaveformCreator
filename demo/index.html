@@ -30,34 +30,45 @@
         var processor = Object.create(AudioProcessor);
         var wave = Object.create(WaveformCreator);
         
-        processor.bufferFile('audio.m4a', function(buffer){
+        processor.bufferFile('audio.mp3', function(buffer){
 
-                var width = 32767 / window.devicePixelRatio;
+                var width = 4000 / window.devicePixelRatio;
+
                 wave.init({
                     container: document.getElementById('waveWrap'), 
-                    image: true,
-                    width: width,
-                    height: 128,
+                    width: 1000,
+                    height: 100,
+                    buffers: [
+                            { buffer: buffer, fill: 'blue' },                            
+                    ]
+                });
 
+                wave.init({
+                    container: document.getElementById('waveWrap'), 
+                    width: 1000,
+                    height: 100,
                     buffers: [
                             { buffer: buffer, fill: 'blue' },
-                            { buffer: buffer, fill: 'red',
+                            { buffer: buffer, fill: 'rgb(0,150,180)',
                                 filter:{
                                     type: 'lowpass',
                                     freq: 50,
                                     q: 2
                                 }
                             },
-                            { buffer: buffer, fill: 'yellow',
+                            { buffer: buffer, fill: 'rgb(0,200,200)',
                                 filter:{
                                     type: 'highpass',
-                                    freq: 2200,
+                                    freq: 10000,
                                     q: 2
                                 }
                             }
                     ]
                 });
 
+                wave.on('beforeDraw', function(){
+                    
+                });
 
                 wave.on('afterDraw', function(){
                     

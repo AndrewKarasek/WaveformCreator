@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+</head>
+<body>
+<h1 id="waveformcreator">WaveformCreator</h1>
+
+<p>Utility to generate graphical waveforms from audio files using HTML5 canvas </p>
+
+<h2 id="usage">Usage</h2>
+
+<p>Create an instance: </p>
+
+<pre><code class="javascript">var wave = Object.create(WaveformCreator);
+</code></pre>
+
+<h3 id="simplewaveform">Simple Waveform</h3>
+
+<p>Initialize with a container element and at least on buffer:</p>
+
+<p>```javascript
+wave.init({
+ container: document.getElementById(&#8216;wave-wrapper&#8217;),
+ width: 1000,
+ height: 100,
+ buffers: [{
+ buffer: bufferedAudio,
+ fill: &#8216;blue&#8217;
+ }]
+});</p>
+
+<figure>
+<img src="/images/waveform.png" alt="Waveform" />
+<figcaption>Waveform</figcaption>
+</figure>
+
+<h3 id="splitfrequencywaveform">Split Frequency Waveform</h3>
+
+<p>To draw isolated frequencies pass a filter to the buffer object </p>
+
+<p>```javascript
+ wave.init({
+ container: document.getElementById(&#8216;waveWrap&#8217;),
+ width: 1000,
+ height: 100,
+ buffers: [
+ { buffer: buffer, fill: &#8216;blue&#8217; },
+ { buffer: buffer, fill: &#8216;rgb(0,150,180)&#8217;,
+ filter:{
+ type: &#8216;lowpass&#8217;,
+ freq: 50,
+ q: 2
+ }
+ },
+ { buffer: buffer, fill: &#8216;rgb(0,200,200)&#8217;,
+ filter:{
+ type: &#8216;highpass&#8217;,
+ freq: 10000,
+ q: 2
+ }
+ }
+ ]
+});</p>
+
+<figure>
+<img src="/images/splitWaveform.png" alt="Split Waveform" />
+<figcaption>Split Waveform</figcaption>
+</figure>
+
+<h2 id="events">Events</h2>
+
+<h2 id="options">Options</h2>
+
+<h3 id="waveformcreatoroptions">WaveformCreator Options</h3>
+
+<table>
+<colgroup>
+<col style="text-align:left;"/>
+<col style="text-align:left;"/>
+<col style="text-align:left;"/>
+</colgroup>
+
+<thead>
+<tr>
+	<th style="text-align:left;">option</th>
+	<th style="text-align:left;">type</th>
+	<th style="text-align:left;">description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+	<td style="text-align:left;"><code>container</code></td>
+	<td style="text-align:left;">Node</td>
+	<td style="text-align:left;">HTML element that the wave will be appended to</td>
+</tr>
+<tr>
+	<td style="text-align:left;"><code>width</code></td>
+	<td style="text-align:left;">Int</td>
+	<td style="text-align:left;">width in px of rendered waveform</td>
+</tr>
+<tr>
+	<td style="text-align:left;"><code>height</code></td>
+	<td style="text-align:left;">Int</td>
+	<td style="text-align:left;">height in px of rendered waveform</td>
+</tr>
+<tr>
+	<td style="text-align:left;"><code>image</code></td>
+	<td style="text-align:left;">Boolean</td>
+	<td style="text-align:left;">whether to create an image tag of the element and append it to the container</td>
+</tr>
+<tr>
+	<td style="text-align:left;"><code>buffers</code></td>
+	<td style="text-align:left;">Array</td>
+	<td style="text-align:left;">array of buffer objects used to generate the waveform from in order</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="bufferobject">Buffer Object</h3>
+
+<table>
+<colgroup>
+<col style="text-align:left;"/>
+<col style="text-align:left;"/>
+<col style="text-align:left;"/>
+</colgroup>
+
+<thead>
+<tr>
+	<th style="text-align:left;">option</th>
+	<th style="text-align:left;">type</th>
+	<th style="text-align:left;">description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+	<td style="text-align:left;"><code>buffer</code></td>
+	<td style="text-align:left;">ArrayBuffer</td>
+	<td style="text-align:left;">buffered audio file</td>
+</tr>
+<tr>
+	<td style="text-align:left;"><code>fill</code></td>
+	<td style="text-align:left;">String</td>
+	<td style="text-align:left;">color/fill to render the waveform with</td>
+</tr>
+<tr>
+	<td style="text-align:left;"><code>filter</code></td>
+	<td style="text-align:left;">Object</td>
+	<td style="text-align:left;">object specifying the parameters in which to filter the audio file before generating the waveform, used to isolate specific frequencies</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="filterobject">Filter Object</h3>
+
+<p>This object will pass parameters to a BiquadFilterNode to filter the audio file pre-render. Refer to <a href="https://developer.mozilla.org/en-US/docs/Web/API/BiquadFilterNode">MDN</a> for more details</p>
+
+<table>
+<colgroup>
+<col style="text-align:left;"/>
+<col style="text-align:left;"/>
+<col style="text-align:left;"/>
+</colgroup>
+
+<thead>
+<tr>
+	<th style="text-align:left;">option</th>
+	<th style="text-align:left;">type</th>
+	<th style="text-align:left;">description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+	<td style="text-align:left;"><code>type</code></td>
+	<td style="text-align:left;">String</td>
+	<td style="text-align:left;">Type of filter to initialise accepts values <code>lowpass</code>, <code>bandpss</code>, <code>highpass</code>, <code>highshelf</code>, <code>lowshelf</code>, <code>peaking</code>, <code>notch</code> &amp; <code>allpass</code>. Refer to <a href="https://developer.mozilla.org/en-US/docs/Web/API/BiquadFilterNode">MDN</a> to see how subsequent properties are applied.</td>
+</tr>
+<tr>
+	<td style="text-align:left;"><code>freq</code></td>
+	<td style="text-align:left;">Int</td>
+	<td style="text-align:left;">frequency at which to apply the filter measured in Hzm range of 10 to half of the sample-rate</td>
+</tr>
+<tr>
+	<td style="text-align:left;"><code>q</code></td>
+	<td style="text-align:left;">Int</td>
+	<td style="text-align:left;">Q factor or quality factor of the filter, range of 0.0001 to 1000</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="credits">Credits</h2>
+
+<p>Built from the original repo <a href="https://github.com/katspaugh/wavesurfer.js">wavesurfer</a> by <a href="https://github.com/katspaugh">katspaugh</a>. </p>
+
+</body>
+</html>

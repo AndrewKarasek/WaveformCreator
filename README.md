@@ -2,14 +2,56 @@
 Utility to generate graphical waveforms from audio files using HTML5 canvas 
 
 ## Usage
+Create an instance: 
 
+```javascript
+var wave = Object.create(WaveformCreator);
+```
 ### Simple Waveform
+Initialize with a container element and at least on buffer:
 
-### Gradient Waveform
+```javascript
+wave.init({
+	container: document.getElementById('wave-wrapper'),
+	width: 1000,
+	height: 100,
+	buffers: [{
+		buffer: bufferedAudio,
+		fill: 'blue'
+	}]
+});
+
+![Waveform](/images/waveform.png)
 
 ### Split Frequency Waveform
+To draw isolated frequencies pass a filter to the buffer object 
 
- 
+```javascript
+ wave.init({
+    container: document.getElementById('waveWrap'), 
+    width: 1000,
+    height: 100,
+    buffers: [
+            { buffer: buffer, fill: 'blue' },
+            { buffer: buffer, fill: 'rgb(0,150,180)',
+                filter:{
+                    type: 'lowpass',
+                    freq: 50,
+                    q: 2
+                }
+            },
+            { buffer: buffer, fill: 'rgb(0,200,200)',
+                filter:{
+                    type: 'highpass',
+                    freq: 10000,
+                    q: 2
+                }
+            }
+    ]
+});
+
+![Split Waveform](/images/splitWaveform.png)
+
 ## Events
 
 ## Options
@@ -18,7 +60,6 @@ Utility to generate graphical waveforms from audio files using HTML5 canvas
 | option | type | description |
 | --- | --- | --- |
 | `container` | Node | HTML element that the wave will be appended to |
-| `canvas` | Node | HTML element that the wave will be appended to |
 | `width` | Int | width in px of rendered waveform |
 | `height` | Int | height in px of rendered waveform |
 | `image` | Boolean | whether to create an image tag of the element and append it to the container |
