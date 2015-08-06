@@ -55,6 +55,37 @@ To draw isolated frequencies pass a filter to the buffer object
 ![Split Waveform](/images/splitWaveform.png)
 
 ## Events
+| event | description |
+| --- | --- | --- |
+| `beforeInit` | fired before any initialization logic takes place |
+| `beforeDraw` | fired before the canvas is drawn to |
+| `afterDraw` | fired directly after the canvas has been drawn to |
+
+### Event Usage
+```javascript
+wave.on('beforeInit', function(){
+	//pre init logic
+});
+
+wave.on('beforeDraw', function(){
+	//before draw logic
+});
+
+wave.on('afterDraw', function(){
+	//after draw logic
+});
+
+wave.init({
+	container: document.getElementById('wave-wrapper'),
+	width: 1000,
+	height: 100,
+	buffers: [{
+		buffer: bufferedAudio,
+		fill: 'blue'
+	}]
+});
+
+```
 
 ## Options
 
@@ -79,9 +110,9 @@ This object will pass parameters to a BiquadFilterNode to filter the audio file 
 
 | option | type | description |
 | --- | --- | --- |
-| `type` | String | Type of filter to initialise accepts values `lowpass`, `bandpss`, `highpass`, `highshelf`, `lowshelf`, `peaking`, `notch` & `allpass`. Refer to [MDN](https://developer.mozilla.org/en-US/docs/Web/API/BiquadFilterNode) to see how subsequent properties are applied.  |
-| `freq` | Int | frequency at which to apply the filter measured in Hzm range of 10 to half of the sample-rate |
-| `q` | Int | Q factor or quality factor of the filter, range of 0.0001 to 1000 |
+| `type` | String | Type of filter to initialise accepts values `lowpass`, `bandpass`, `highpass`, `highshelf`, `lowshelf`, `peaking`, `notch` & `allpass`. Refer to [MDN](https://developer.mozilla.org/en-US/docs/Web/API/BiquadFilterNode) to see how subsequent properties are applied.  |
+| `freq` | Int | frequency at which to apply the filter measured in Hz range of `10` to `half of the sample-rate` |
+| `q` | Int | Q factor or quality factor of the filter, range of `0.0001` to `1000` |
 
 
 ## Credits
