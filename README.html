@@ -19,16 +19,16 @@
 
 <p>Initialize with a container element and at least on buffer:</p>
 
-<p>```javascript
-wave.init({
- container: document.getElementById(&#8216;wave-wrapper&#8217;),
- width: 1000,
- height: 100,
- buffers: [{
- buffer: bufferedAudio,
- fill: &#8216;blue&#8217;
- }]
-});</p>
+<pre><code class="javascript">wave.init({
+    container: document.getElementById('wave-wrapper'),
+    width: 1000,
+    height: 100,
+    buffers: [{
+        buffer: bufferedAudio,
+        fill: 'blue'
+    }]
+});
+</code></pre>
 
 <figure>
 <img src="/images/waveform.png" alt="Waveform" />
@@ -113,7 +113,7 @@ wave.init({
 <tr>
 	<td style="text-align:left;"><code>buffers</code></td>
 	<td style="text-align:left;">Array</td>
-	<td style="text-align:left;">array of buffer objects used to generate the waveform from in order</td>
+	<td style="text-align:left;">array of buffer objects used to generate the waveform from in order, see <a href="#buffer-object">Buffer Object</a></td>
 </tr>
 </tbody>
 </table>
@@ -149,7 +149,7 @@ wave.init({
 <tr>
 	<td style="text-align:left;"><code>filter</code></td>
 	<td style="text-align:left;">Object</td>
-	<td style="text-align:left;">object specifying the parameters in which to filter the audio file before generating the waveform, used to isolate specific frequencies</td>
+	<td style="text-align:left;">object specifying the parameters in which to filter the audio file before generating the waveform, used to isolate specific frequencies, see <a href="#filter-object">Filter Object</a></td>
 </tr>
 </tbody>
 </table>

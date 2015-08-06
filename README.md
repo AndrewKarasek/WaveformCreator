@@ -20,6 +20,7 @@ wave.init({
 		fill: 'blue'
 	}]
 });
+```
 
 ![Waveform](/images/waveform.png)
 
@@ -63,14 +64,14 @@ To draw isolated frequencies pass a filter to the buffer object
 | `width` | Int | width in px of rendered waveform |
 | `height` | Int | height in px of rendered waveform |
 | `image` | Boolean | whether to create an image tag of the element and append it to the container |
-| `buffers` | Array | array of buffer objects used to generate the waveform from in order |
+| `buffers` | Array | array of buffer objects used to generate the waveform from in order, see [Buffer Object](#buffer-object) |
 
 ### Buffer Object
 | option | type | description |
 | --- | --- | --- |
 | `buffer` | ArrayBuffer | buffered audio file |
 | `fill` | String | color/fill to render the waveform with |
-| `filter` | Object | object specifying the parameters in which to filter the audio file before generating the waveform, used to isolate specific frequencies |
+| `filter` | Object | object specifying the parameters in which to filter the audio file before generating the waveform, used to isolate specific frequencies, see [Filter Object](#filter-object) |
 
 ### Filter Object
 This object will pass parameters to a BiquadFilterNode to filter the audio file pre-render. Refer to [MDN](https://developer.mozilla.org/en-US/docs/Web/API/BiquadFilterNode) for more details
