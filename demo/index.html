@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>wavesurfer.js</title>
+
+        <link href="data:image/gif;" rel="icon" type="image/x-icon" />
+
+        <!-- Bootstrap -->
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
+
+        <link rel="stylesheet" href="/style.css" />
+        
+
+        <link rel="screenshot" itemprop="screenshot" href="" />
+
+        <!-- wavesurfer.js -->
+        <script src="../WaveformCreator.js"></script>
+        <script src="../demo/AudioProcessor.js"></script>
+
+    </head>
+
+    <body itemscope itemtype="http://schema.org/WebApplication">
+        <canvas id='demoCanvas' width='2000' height='256' style='width: 1000px; height: 128px;'></canvas>
+
+        <div id="waveWrap"></div>
+        <div id='wsCanvas' style='width: 1000px; height: 100px;'></div>
+
+        <script>
+        var processor = Object.create(AudioProcessor);
+        var wave = Object.create(WaveformCreator);
+        
+        processor.bufferFile('audio.m4a', function(buffer){
+
+                var width = 32767 / window.devicePixelRatio;
+                wave.init({
+                    container: document.getElementById('waveWrap'), 
+                    image: true,
+                    width: width,
+                    height: 128,
+
+                    buffers: [
+                            { buffer: buffer, fill: 'blue' },
+                            { buffer: buffer, fill: 'red',
+                                filter:{
+                                    type: 'lowpass',
+                                    freq: 50,
+                                    q: 2
+                                }
+                            },
+                            { buffer: buffer, fill: 'yellow',
+                                filter:{
+                                    type: 'highpass',
+                                    freq: 2200,
+                                    q: 2
+                                }
+                            }
+                    ]
+                });
+
+
+                wave.on('afterDraw', function(){
+                    
+                });
+        });
+
+        </script>
+        
+    </body>
+</html>
