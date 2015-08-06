@@ -50,6 +50,7 @@ To draw isolated frequencies pass a filter to the buffer object
             }
     ]
 });
+```
 
 ![Split Waveform](/images/splitWaveform.png)
 

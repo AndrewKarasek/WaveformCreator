@@ -39,29 +39,29 @@
 
 <p>To draw isolated frequencies pass a filter to the buffer object </p>
 
-<p>```javascript
- wave.init({
- container: document.getElementById(&#8216;waveWrap&#8217;),
- width: 1000,
- height: 100,
- buffers: [
- { buffer: buffer, fill: &#8216;blue&#8217; },
- { buffer: buffer, fill: &#8216;rgb(0,150,180)&#8217;,
- filter:{
- type: &#8216;lowpass&#8217;,
- freq: 50,
- q: 2
- }
- },
- { buffer: buffer, fill: &#8216;rgb(0,200,200)&#8217;,
- filter:{
- type: &#8216;highpass&#8217;,
- freq: 10000,
- q: 2
- }
- }
- ]
-});</p>
+<pre><code class="javascript"> wave.init({
+    container: document.getElementById('waveWrap'), 
+    width: 1000,
+    height: 100,
+    buffers: [
+            { buffer: buffer, fill: 'blue' },
+            { buffer: buffer, fill: 'rgb(0,150,180)',
+                filter:{
+                    type: 'lowpass',
+                    freq: 50,
+                    q: 2
+                }
+            },
+            { buffer: buffer, fill: 'rgb(0,200,200)',
+                filter:{
+                    type: 'highpass',
+                    freq: 10000,
+                    q: 2
+                }
+            }
+    ]
+});
+</code></pre>
 
 <figure>
 <img src="/images/splitWaveform.png" alt="Split Waveform" />
